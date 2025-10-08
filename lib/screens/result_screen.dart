@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../models/quiz_result_model.dart';
 import '../core/theme/app_theme.dart';
+import '../core/theme/app_text_styles.dart';
+import '../core/constants/app_strings.dart';
 
 class ResultScreen extends StatelessWidget {
   final QuizResultModel result;
@@ -37,7 +39,7 @@ class ResultScreen extends StatelessWidget {
                   ),
                   child: Center(
                     child: Text(
-                      result.percentage >= 70 ? '🎉' : '📚',
+                      result.percentage >= 70 ? AppStrings.emojiParty : AppStrings.emojiBook,
                       style: TextStyle(fontSize: isWeb ? 70 : 60),
                     ),
                   ),
@@ -47,12 +49,8 @@ class ResultScreen extends StatelessWidget {
                 
                 // Result Title
                 Text(
-                  result.percentage >= 70 ? 'Great Job!' : 'Keep Learning!',
-                  style: TextStyle(
-                    fontSize: isWeb ? 36 : 28,
-                    fontWeight: FontWeight.w800,
-                    color: AppTheme.textPrimary,
-                  ),
+                  result.percentage >= 70 ? AppStrings.greatJob : AppStrings.keepLearning,
+                  style: isWeb ? AppTextStyles.heading1Web : AppTextStyles.heading1,
                 ),
                 
                 SizedBox(height: isWeb ? 12 : 8),
@@ -60,10 +58,7 @@ class ResultScreen extends StatelessWidget {
                 // Category Name
                 Text(
                   result.categoryName,
-                  style: TextStyle(
-                    fontSize: isWeb ? 20 : 16,
-                    color: AppTheme.textSecondary,
-                  ),
+                  style: isWeb ? AppTextStyles.heading4Web : AppTextStyles.heading4,
                 ),
                 
                 SizedBox(height: isWeb ? 40 : 32),
@@ -92,21 +87,16 @@ class ResultScreen extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  '${result.percentage.toInt()}%',
-                                  style: TextStyle(
-                                    fontSize: isWeb ? 40 : 32,
-                                    fontWeight: FontWeight.w900,
+                                  AppStrings.percentageFormat(result.percentage.toInt()),
+                                  style: (isWeb ? AppTextStyles.displayMediumWeb : AppTextStyles.displayMedium).copyWith(
                                     color: result.percentage >= 70
                                         ? AppTheme.correctColor
                                         : AppTheme.incorrectColor,
                                   ),
                                 ),
                                 Text(
-                                  'Score',
-                                  style: TextStyle(
-                                    fontSize: isWeb ? 16 : 14,
-                                    color: AppTheme.textSecondary,
-                                  ),
+                                  AppStrings.scoreLabel,
+                                  style: isWeb ? AppTextStyles.bodyMediumWeb : AppTextStyles.bodyMedium,
                                 ),
                               ],
                             ),
@@ -120,24 +110,24 @@ class ResultScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             _buildStatItem(
-                              '✅',
-                              'Correct',
+                              AppStrings.emojiCheckMark,
+                              AppStrings.correct,
                               '${result.correctAnswers}',
                               AppTheme.correctColor,
                               isWeb,
                             ),
                             _buildDivider(isWeb),
                             _buildStatItem(
-                              '❌',
-                              'Incorrect',
+                              AppStrings.emojiCross,
+                              AppStrings.incorrect,
                               '${result.incorrectAnswers}',
                               AppTheme.incorrectColor,
                               isWeb,
                             ),
                             _buildDivider(isWeb),
                             _buildStatItem(
-                              '📊',
-                              'Total',
+                              AppStrings.emojiChart,
+                              AppStrings.total,
                               '${result.totalQuestions}',
                               AppTheme.primaryColor,
                               isWeb,
@@ -160,7 +150,7 @@ class ResultScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          '⭐',
+                          AppStrings.emojiStar,
                           style: TextStyle(fontSize: isWeb ? 32 : 28),
                         ),
                         SizedBox(width: isWeb ? 16 : 12),
@@ -168,17 +158,12 @@ class ResultScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Points Earned',
-                              style: TextStyle(
-                                fontSize: isWeb ? 16 : 14,
-                                color: AppTheme.textSecondary,
-                              ),
+                              AppStrings.pointsEarned,
+                              style: isWeb ? AppTextStyles.bodyMediumWeb : AppTextStyles.bodyMedium,
                             ),
                             Text(
-                              '+${result.scoreEarned}',
-                              style: TextStyle(
-                                fontSize: isWeb ? 32 : 24,
-                                fontWeight: FontWeight.w800,
+                              AppStrings.pointsFormat(result.scoreEarned),
+                              style: (isWeb ? AppTextStyles.displayMediumWeb : AppTextStyles.displayMedium).copyWith(
                                 color: AppTheme.primaryColor,
                               ),
                             ),
@@ -202,12 +187,11 @@ class ResultScreen extends StatelessWidget {
                       padding: EdgeInsets.symmetric(
                         vertical: isWeb ? 20 : 16,
                       ),
-                      textStyle: TextStyle(
-                        fontSize: isWeb ? 18 : 16,
-                        fontWeight: FontWeight.w600,
-                      ),
                     ),
-                    child: const Text('Back to Home'),
+                    child: Text(
+                      AppStrings.backToHome,
+                      style: isWeb ? AppTextStyles.buttonTextWeb : AppTextStyles.buttonText,
+                    ),
                   ),
                 ),
               ],
@@ -234,19 +218,14 @@ class ResultScreen extends StatelessWidget {
         SizedBox(height: isWeb ? 12 : 8),
         Text(
           value,
-          style: TextStyle(
-            fontSize: isWeb ? 28 : 22,
-            fontWeight: FontWeight.w700,
+          style: (isWeb ? AppTextStyles.displaySmallWeb : AppTextStyles.displaySmall).copyWith(
             color: color,
           ),
         ),
         SizedBox(height: isWeb ? 6 : 4),
         Text(
           label,
-          style: TextStyle(
-            fontSize: isWeb ? 14 : 12,
-            color: AppTheme.textSecondary,
-          ),
+          style: isWeb ? AppTextStyles.bodySmallWeb : AppTextStyles.bodySmall,
         ),
       ],
     );

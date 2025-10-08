@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../models/user_model.dart';
 import '../core/theme/app_theme.dart';
+import '../core/theme/app_text_styles.dart';
+import '../core/constants/app_strings.dart';
 
 class UserHeaderWidget extends StatelessWidget {
   final UserModel user;
@@ -54,11 +56,7 @@ class UserHeaderWidget extends StatelessWidget {
               children: [
                 Text(
                   user.name,
-                  style: TextStyle(
-                    fontSize: isWeb ? 18 : 16,
-                    fontWeight: FontWeight.w600,
-                    color: AppTheme.textPrimary,
-                  ),
+                  style: isWeb ? AppTextStyles.heading4Web : AppTextStyles.heading4,
                 ),
                 const SizedBox(height: 8),
                 
@@ -70,19 +68,12 @@ class UserHeaderWidget extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Progress',
-                          style: TextStyle(
-                            fontSize: isWeb ? 13 : 12,
-                            color: AppTheme.textSecondary,
-                          ),
+                          AppStrings.progress,
+                          style: isWeb ? AppTextStyles.captionWeb : AppTextStyles.caption,
                         ),
                         Text(
-                          '${user.quizzesTaken}/${user.totalQuizzes}',
-                          style: TextStyle(
-                            fontSize: isWeb ? 13 : 12,
-                            fontWeight: FontWeight.w500,
-                            color: AppTheme.textSecondary,
-                          ),
+                          AppStrings.progressFormat(user.quizzesTaken, user.totalQuizzes),
+                          style: isWeb ? AppTextStyles.captionWeb : AppTextStyles.caption,
                         ),
                       ],
                     ),

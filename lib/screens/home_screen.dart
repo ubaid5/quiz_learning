@@ -4,7 +4,8 @@ import '../models/user_model.dart';
 import '../models/quiz_category_model.dart';
 import '../widgets/user_header_widget.dart';
 import '../widgets/quiz_category_card.dart';
-import '../core/theme/app_theme.dart';
+import '../core/theme/app_text_styles.dart';
+import '../core/constants/app_strings.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -38,29 +39,29 @@ class HomeScreen extends StatelessWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              _buildStatItem(
-                                context,
-                                '🏆',
-                                'Rank',
-                                '#${user.rank}',
-                                isWeb,
-                              ),
-                              _buildDivider(isWeb),
-                              _buildStatItem(
-                                context,
-                                '⭐',
-                                'Score',
-                                '${user.score}',
-                                isWeb,
-                              ),
-                              _buildDivider(isWeb),
-                              _buildStatItem(
-                                context,
-                                '📊',
-                                'Completed',
-                                '${user.quizzesTaken}',
-                                isWeb,
-                              ),
+                             _buildStatItem(
+                               context,
+                               AppStrings.emojiTrophy,
+                               AppStrings.rank,
+                               AppStrings.rankFormat(user.rank),
+                               isWeb,
+                             ),
+                             _buildDivider(isWeb),
+                             _buildStatItem(
+                               context,
+                               AppStrings.emojiStar,
+                               AppStrings.score,
+                               '${user.score}',
+                               isWeb,
+                             ),
+                             _buildDivider(isWeb),
+                             _buildStatItem(
+                               context,
+                               AppStrings.emojiChart,
+                               AppStrings.completed,
+                               '${user.quizzesTaken}',
+                               isWeb,
+                             ),
                             ],
                           ),
                         ),
@@ -68,15 +69,11 @@ class HomeScreen extends StatelessWidget {
 
                       SizedBox(height: isWeb ? 32 : 24),
 
-                      // Section Title
-                      Text(
-                        'Quiz Categories',
-                        style: TextStyle(
-                          fontSize: isWeb ? 24 : 20,
-                          fontWeight: FontWeight.w700,
-                          color: AppTheme.textPrimary,
-                        ),
-                      ),
+                    // Section Title
+                    Text(
+                      AppStrings.quizCategories,
+                      style: isWeb ? AppTextStyles.heading3Web : AppTextStyles.heading3,
+                    ),
                       SizedBox(height: isWeb ? 20 : 16),
 
                       // Categories List
@@ -121,19 +118,12 @@ class HomeScreen extends StatelessWidget {
         SizedBox(height: isWeb ? 12 : 8),
         Text(
           value,
-          style: TextStyle(
-            fontSize: isWeb ? 24 : 20,
-            fontWeight: FontWeight.w700,
-            color: AppTheme.primaryColor,
-          ),
+          style: isWeb ? AppTextStyles.statValueWeb : AppTextStyles.statValue,
         ),
         SizedBox(height: isWeb ? 6 : 4),
         Text(
           label,
-          style: TextStyle(
-            fontSize: isWeb ? 14 : 12,
-            color: AppTheme.textSecondary,
-          ),
+          style: isWeb ? AppTextStyles.statLabelWeb : AppTextStyles.statLabel,
         ),
       ],
     );

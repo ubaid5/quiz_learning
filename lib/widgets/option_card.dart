@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../core/theme/app_theme.dart';
+import '../core/theme/app_text_styles.dart';
 
 class OptionCard extends StatelessWidget {
   final String option;
@@ -64,10 +65,8 @@ class OptionCard extends StatelessWidget {
             Expanded(
               child: Text(
                 option,
-                style: TextStyle(
-                  fontSize: isWeb ? 16 : 14,
+                style: (isWeb ? AppTextStyles.bodyLargeWeb : AppTextStyles.bodyLarge).copyWith(
                   fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
-                  color: AppTheme.textPrimary,
                 ),
               ),
             ),

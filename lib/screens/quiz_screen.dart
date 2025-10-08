@@ -6,6 +6,8 @@ import '../models/quiz_category_model.dart';
 import '../models/quiz_result_model.dart';
 import '../widgets/option_card.dart';
 import '../core/theme/app_theme.dart';
+import '../core/theme/app_text_styles.dart';
+import '../core/constants/app_strings.dart';
 
 class QuizScreen extends StatefulWidget {
   final QuizCategoryModel category;
@@ -106,16 +108,16 @@ class _QuizScreenState extends State<QuizScreen> {
         final shouldPop = await showDialog<bool>(
           context: context,
           builder: (context) => AlertDialog(
-            title: const Text('Exit Quiz?'),
-            content: const Text('Your progress will be lost. Are you sure you want to exit?'),
+            title: Text(AppStrings.exitQuiz),
+            content: Text(AppStrings.exitQuizMessage),
             actions: [
               TextButton(
                 onPressed: () => Navigator.of(context).pop(false),
-                child: const Text('Cancel'),
+                child: Text(AppStrings.cancel),
               ),
               TextButton(
                 onPressed: () => Navigator.of(context).pop(true),
-                child: const Text('Exit'),
+                child: Text(AppStrings.exit),
               ),
             ],
           ),
@@ -133,16 +135,16 @@ class _QuizScreenState extends State<QuizScreen> {
               final shouldExit = await showDialog<bool>(
                 context: context,
                 builder: (context) => AlertDialog(
-                  title: const Text('Exit Quiz?'),
-                  content: const Text('Your progress will be lost. Are you sure you want to exit?'),
+                  title: Text(AppStrings.exitQuiz),
+                  content: Text(AppStrings.exitQuizMessage),
                   actions: [
                     TextButton(
                       onPressed: () => Navigator.of(context).pop(false),
-                      child: const Text('Cancel'),
+                      child: Text(AppStrings.cancel),
                     ),
                     TextButton(
                       onPressed: () => Navigator.of(context).pop(true),
-                      child: const Text('Exit'),
+                      child: Text(AppStrings.exit),
                       style: TextButton.styleFrom(
                         foregroundColor: AppTheme.incorrectColor,
                       ),
@@ -158,11 +160,7 @@ class _QuizScreenState extends State<QuizScreen> {
           ),
           title: Text(
             widget.category.name,
-            style: TextStyle(
-              color: AppTheme.textPrimary,
-              fontSize: isWeb ? 20 : 18,
-              fontWeight: FontWeight.w600,
-            ),
+            style: isWeb ? AppTextStyles.heading4Web : AppTextStyles.heading4,
           ),
         ),
         body: SafeArea(
@@ -198,13 +196,9 @@ class _QuizScreenState extends State<QuizScreen> {
                                 ),
                                 child: Text(
                                   _currentQuestion.type == QuestionType.multipleChoice
-                                      ? 'Multiple Choice'
-                                      : 'True/False',
-                                  style: TextStyle(
-                                    fontSize: isWeb ? 13 : 12,
-                                    fontWeight: FontWeight.w600,
-                                    color: AppTheme.primaryColor,
-                                  ),
+                                      ? AppStrings.multipleChoice
+                                      : AppStrings.trueFalse,
+                                  style: isWeb ? AppTextStyles.badgeWeb : AppTextStyles.badge,
                                 ),
                               ),
                               
@@ -213,12 +207,7 @@ class _QuizScreenState extends State<QuizScreen> {
                               // Question Text
                               Text(
                                 _currentQuestion.question,
-                                style: TextStyle(
-                                  fontSize: isWeb ? 22 : 18,
-                                  fontWeight: FontWeight.w600,
-                                  color: AppTheme.textPrimary,
-                                  height: 1.4,
-                                ),
+                                style: isWeb ? AppTextStyles.questionTextWeb : AppTextStyles.questionText,
                               ),
                             ],
                           ),
@@ -258,15 +247,11 @@ class _QuizScreenState extends State<QuizScreen> {
                               SizedBox(width: isWeb ? 12 : 10),
                               Text(
                                 _selectedAnswer == _currentQuestion.correctAnswer
-                                    ? 'Correct! Well done! 🎉'
-                                    : 'Incorrect. Try the next one! 💪',
-                                style: TextStyle(
-                                  fontSize: isWeb ? 16 : 14,
-                                  fontWeight: FontWeight.w600,
-                                  color: _selectedAnswer == _currentQuestion.correctAnswer
-                                      ? AppTheme.correctColor
-                                      : AppTheme.incorrectColor,
-                                ),
+                                    ? AppStrings.feedbackCorrect
+                                    : AppStrings.feedbackIncorrect,
+                                style: _selectedAnswer == _currentQuestion.correctAnswer
+                                    ? (isWeb ? AppTextStyles.feedbackCorrectWeb : AppTextStyles.feedbackCorrect)
+                                    : (isWeb ? AppTextStyles.feedbackIncorrectWeb : AppTextStyles.feedbackIncorrect),
                               ),
                             ],
                           ),
@@ -305,12 +290,11 @@ class _QuizScreenState extends State<QuizScreen> {
                               padding: EdgeInsets.symmetric(
                                 vertical: isWeb ? 20 : 16,
                               ),
-                              textStyle: TextStyle(
-                                fontSize: isWeb ? 18 : 16,
-                                fontWeight: FontWeight.w600,
-                              ),
                             ),
-                            child: const Text('Submit Answer'),
+                            child: Text(
+                              AppStrings.submitAnswer,
+                              style: isWeb ? AppTextStyles.buttonTextWeb : AppTextStyles.buttonText,
+                            ),
                           ),
                         ),
                       
@@ -324,15 +308,12 @@ class _QuizScreenState extends State<QuizScreen> {
                               padding: EdgeInsets.symmetric(
                                 vertical: isWeb ? 20 : 16,
                               ),
-                              textStyle: TextStyle(
-                                fontSize: isWeb ? 18 : 16,
-                                fontWeight: FontWeight.w600,
-                              ),
                             ),
                             child: Text(
                               _currentQuestionIndex < _questions.length - 1
-                                  ? 'Next Question'
-                                  : 'View Results',
+                                  ? AppStrings.nextQuestion
+                                  : AppStrings.viewResults,
+                              style: isWeb ? AppTextStyles.buttonTextWeb : AppTextStyles.buttonText,
                             ),
                           ),
                         ),
@@ -372,18 +353,12 @@ class _QuizScreenState extends State<QuizScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Question ${_currentQuestionIndex + 1}/$_totalQuestions',
-                style: TextStyle(
-                  fontSize: isWeb ? 18 : 16,
-                  fontWeight: FontWeight.w600,
-                  color: AppTheme.textPrimary,
-                ),
+                AppStrings.questionFormat(_currentQuestionIndex + 1, _totalQuestions),
+                style: isWeb ? AppTextStyles.heading4Web : AppTextStyles.heading4,
               ),
               Text(
-                '$progressPercentage%',
-                style: TextStyle(
-                  fontSize: isWeb ? 18 : 16,
-                  fontWeight: FontWeight.w600,
+                AppStrings.percentageFormat(progressPercentage),
+                style: (isWeb ? AppTextStyles.heading4Web : AppTextStyles.heading4).copyWith(
                   color: AppTheme.primaryColor,
                 ),
               ),
@@ -435,20 +410,14 @@ class _QuizScreenState extends State<QuizScreen> {
                   ),
                   SizedBox(width: isWeb ? 12 : 8),
                   Text(
-                    'Time Remaining',
-                    style: TextStyle(
-                      fontSize: isWeb ? 16 : 14,
-                      fontWeight: FontWeight.w500,
-                      color: AppTheme.textSecondary,
-                    ),
+                    AppStrings.timeRemaining,
+                    style: isWeb ? AppTextStyles.bodyMediumWeb : AppTextStyles.bodyMedium,
                   ),
                 ],
               ),
               Text(
-                '${_remainingSeconds}s',
-                style: TextStyle(
-                  fontSize: isWeb ? 24 : 20,
-                  fontWeight: FontWeight.w700,
+                AppStrings.secondsFormat(_remainingSeconds),
+                style: (isWeb ? AppTextStyles.timerLargeWeb : AppTextStyles.timerLarge).copyWith(
                   color: _remainingSeconds <= 10
                       ? AppTheme.incorrectColor
                       : AppTheme.primaryColor,

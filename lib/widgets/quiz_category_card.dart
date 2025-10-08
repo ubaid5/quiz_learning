@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../models/quiz_category_model.dart';
 import '../core/theme/app_theme.dart';
+import '../core/theme/app_text_styles.dart';
+import '../core/constants/app_strings.dart';
 
 class QuizCategoryCard extends StatelessWidget {
   final QuizCategoryModel category;
@@ -50,19 +52,12 @@ class QuizCategoryCard extends StatelessWidget {
                   children: [
                     Text(
                       category.name,
-                      style: TextStyle(
-                        fontSize: isWeb ? 18 : 16,
-                        fontWeight: FontWeight.w600,
-                        color: AppTheme.textPrimary,
-                      ),
+                      style: isWeb ? AppTextStyles.heading4Web : AppTextStyles.heading4,
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      'Difficulty: ${category.difficulty.toUpperCase()}',
-                      style: TextStyle(
-                        fontSize: isWeb ? 13 : 12,
-                        color: AppTheme.textSecondary,
-                      ),
+                      AppStrings.difficultyFormat(category.difficulty),
+                      style: isWeb ? AppTextStyles.bodySmallWeb : AppTextStyles.bodySmall,
                     ),
                     const SizedBox(height: 12),
                     
@@ -74,18 +69,14 @@ class QuizCategoryCard extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              'Progress',
-                              style: TextStyle(
-                                fontSize: isWeb ? 13 : 12,
-                                color: AppTheme.textSecondary,
-                              ),
+                              AppStrings.progress,
+                              style: isWeb ? AppTextStyles.captionWeb : AppTextStyles.caption,
                             ),
                             Text(
-                              '${category.completedQuizzes}/${category.totalQuizzes}',
-                              style: TextStyle(
-                                fontSize: isWeb ? 13 : 12,
-                                fontWeight: FontWeight.w500,
+                              AppStrings.progressFormat(category.completedQuizzes, category.totalQuizzes),
+                              style: (isWeb ? AppTextStyles.captionWeb : AppTextStyles.caption).copyWith(
                                 color: Color(int.parse(category.color)),
+                                fontWeight: FontWeight.w500,
                               ),
                             ),
                           ],

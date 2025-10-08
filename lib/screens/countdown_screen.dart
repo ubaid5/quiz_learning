@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../models/quiz_category_model.dart';
 import '../core/theme/app_theme.dart';
+import '../core/theme/app_text_styles.dart';
+import '../core/constants/app_strings.dart';
 import 'dart:async';
 
 class CountdownScreen extends StatefulWidget {
@@ -108,9 +110,7 @@ class _CountdownScreenState extends State<CountdownScreen>
               // Category Name
               Text(
                 widget.category.name,
-                style: TextStyle(
-                  fontSize: isWeb ? 32 : 24,
-                  fontWeight: FontWeight.w700,
+                style: (isWeb ? AppTextStyles.heading1Web : AppTextStyles.heading1).copyWith(
                   color: Colors.white,
                 ),
               ),
@@ -137,9 +137,8 @@ class _CountdownScreenState extends State<CountdownScreen>
                   child: Center(
                     child: Text(
                       '$_currentCount',
-                      style: TextStyle(
+                      style: (isWeb ? AppTextStyles.displayLargeWeb : AppTextStyles.displayLarge).copyWith(
                         fontSize: isWeb ? 80 : 64,
-                        fontWeight: FontWeight.w900,
                         color: AppTheme.primaryColor,
                       ),
                     ),
@@ -151,10 +150,8 @@ class _CountdownScreenState extends State<CountdownScreen>
               
               // Get Ready Text
               Text(
-                'Get Ready!',
-                style: TextStyle(
-                  fontSize: isWeb ? 24 : 20,
-                  fontWeight: FontWeight.w500,
+                AppStrings.getReady,
+                style: (isWeb ? AppTextStyles.heading2Web : AppTextStyles.heading2).copyWith(
                   color: Colors.white.withOpacity(0.9),
                 ),
               ),
