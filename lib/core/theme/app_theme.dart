@@ -9,9 +9,12 @@ class AppTheme {
   static const Color incorrectColor = Color(0xFFEF4444);
   static const Color textPrimary = Color(0xFF0F172A);
   static const Color textSecondary = Color(0xFF64748B);
+
+  static const String fontFamily = 'Inter';
   
   static ThemeData lightTheme = ThemeData(
     useMaterial3: true,
+    fontFamily: fontFamily,
     colorScheme: ColorScheme.fromSeed(
       seedColor: primaryColor,
       primary: primaryColor,
@@ -44,7 +47,29 @@ class AppTheme {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
         ),
+        textStyle: const TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w600,
+          fontFamily: fontFamily,
+        ),
       ),
+    ),
+    textTheme: const TextTheme(
+      displayLarge: TextStyle(fontFamily: fontFamily),
+      displayMedium: TextStyle(fontFamily: fontFamily),
+      displaySmall: TextStyle(fontFamily: fontFamily),
+      headlineLarge: TextStyle(fontFamily: fontFamily),
+      headlineMedium: TextStyle(fontFamily: fontFamily),
+      headlineSmall: TextStyle(fontFamily: fontFamily),
+      titleLarge: TextStyle(fontFamily: fontFamily),
+      titleMedium: TextStyle(fontFamily: fontFamily),
+      titleSmall: TextStyle(fontFamily: fontFamily),
+      bodyLarge: TextStyle(fontFamily: fontFamily),
+      bodyMedium: TextStyle(fontFamily: fontFamily),
+      bodySmall: TextStyle(fontFamily: fontFamily),
+      labelLarge: TextStyle(fontFamily: fontFamily),
+      labelMedium: TextStyle(fontFamily: fontFamily),
+      labelSmall: TextStyle(fontFamily: fontFamily),
     ),
   );
 }
