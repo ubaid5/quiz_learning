@@ -1,7 +1,4 @@
 class AppStrings {
-  // App Info
-  static const String appName = 'Quiz Learning';
-  
   // Home Screen
   static const String quizCategories = 'Quiz Categories';
   static const String rank = 'Rank';
@@ -62,4 +59,3 @@ class AppStrings {
   static String pointsFormat(int points) => '+$points';
   static String difficultyFormat(String difficulty) => 'Difficulty: ${difficulty.toUpperCase()}';
 }
-
