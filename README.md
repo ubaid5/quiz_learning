@@ -1,79 +1,92 @@
 # Quiz Learning App
 
-A modern, responsive Flutter quiz application that works seamlessly on Web and Mobile platforms. This app features a beautiful UI with multiple quiz categories, real-time feedback, and progress tracking.
+A Flutter-based quiz learning application built with clean architecture principles, featuring a responsive UI that works seamlessly on both Web and Mobile platforms.
 
-## 📱 Features (Static UI - Step 1)
+## Features
 
-- **Responsive Design**: Works beautifully on mobile, tablet, and web
-- **Modern UI**: Clean, intuitive interface with smooth animations
-- **User Dashboard**: Displays user stats including rank, score, and progress
-- **Quiz Categories**: 5 different quiz categories with progress tracking:
-  - General Knowledge
-  - Mathematics
-  - Science & Nature
-  - History
-  - Sports
-- **Countdown Animation**: 3-2-1 countdown before quiz starts
-- **Quiz Interface**: 
-  - Question progress indicator (e.g., 3/10 - 30%)
-  - Multiple choice and True/False question support
-  - Timer display (60 seconds per question)
-  - Immediate visual feedback (green for correct, red for incorrect)
-  - Feedback messages
-- **Result Screen**: Detailed quiz results with score breakdown
+- ✅ **Clean Architecture**: Feature-first approach with separation of concerns (Domain, Data, Presentation layers)
+- ✅ **State Management**: BLoC pattern for predictable state management
+- ✅ **Routing**: GoRouter for declarative navigation
+- ✅ **Dependency Injection**: GetIt for dependency management
+- ✅ **API Integration**: Open Trivia DB API for quiz questions
+- ✅ **Local Storage**: SharedPreferences for caching and offline support
+- ✅ **Responsive Design**: Optimized for both Web and Mobile devices
+- ✅ **Multiple Question Types**: Support for multiple choice and true/false questions
+- ✅ **Real-time Feedback**: Immediate answer validation with visual feedback
+- ✅ **Progress Tracking**: User progress and quiz statistics
+- ✅ **Timer System**: 60-second countdown per question
+- ✅ **Countdown Animation**: 3-2-1 countdown before quiz starts
+- ✅ **Tests**: Unit tests for use cases and widget tests for UI components
 
-## 🏗️ Project Structure
+## Project Structure
 
 ```
 lib/
 ├── core/
-│   ├── constants/
-│   │   └── app_constants.dart       # App-wide constants
-│   ├── router/
-│   │   └── app_router.dart          # GoRouter configuration
-│   └── theme/
-│       └── app_theme.dart           # App theme and colors
-├── models/
-│   ├── question_model.dart          # Question data model
-│   ├── quiz_category_model.dart     # Quiz category model
-│   ├── quiz_result_model.dart       # Result data model
-│   └── user_model.dart              # User data model
-├── screens/
-│   ├── home_screen.dart             # Main home screen
-│   ├── countdown_screen.dart        # 3-2-1 countdown screen
-│   ├── quiz_screen.dart             # Quiz question screen
-│   └── result_screen.dart           # Results display screen
-├── widgets/
-│   ├── option_card.dart             # Quiz option widget
-│   ├── quiz_category_card.dart      # Category card widget
-│   └── user_header_widget.dart      # User header widget
-└── main.dart                        # App entry point
+│   ├── constants/          # App constants and strings
+│   ├── di/                 # Dependency injection setup
+│   ├── error/              # Error handling (failures & exceptions)
+│   ├── network/            # Network info
+│   ├── router/             # GoRouter configuration
+│   ├── theme/              # App theme and text styles
+│   └── usecases/           # Base use case classes
+├── features/
+│   ├── quiz/
+│   │   ├── data/
+│   │   │   ├── datasources/     # Remote & Local data sources
+│   │   │   ├── models/          # Data models with JSON serialization
+│   │   │   └── repositories/    # Repository implementations
+│   │   ├── domain/
+│   │   │   ├── entities/        # Business entities
+│   │   │   ├── repositories/    # Repository interfaces
+│   │   │   └── usecases/        # Business logic
+│   │   └── presentation/
+│   │       ├── bloc/            # BLoC state management
+│   │       ├── screens/         # UI screens
+│   │       └── widgets/         # Reusable widgets
+│   └── user/
+│       ├── data/
+│       ├── domain/
+│       └── presentation/
+└── main.dart
 ```
 
-## 🚀 Getting Started
+## Tech Stack
+
+- **Flutter**: SDK ^3.8.1
+- **State Management**: flutter_bloc ^9.1.1
+- **Routing**: go_router ^16.2.4
+- **Dependency Injection**: get_it ^8.2.0
+- **HTTP Client**: http ^1.5.0
+- **Local Storage**: shared_preferences ^2.5.3
+- **Functional Programming**: dartz ^0.10.1
+- **Value Equality**: equatable ^2.0.7
+
+## Getting Started
 
 ### Prerequisites
 
-- Flutter SDK (3.8.1 or higher)
-- Dart SDK
-- An IDE (VS Code, Android Studio, or IntelliJ IDEA)
+- Flutter SDK (^3.8.1)
+- Dart SDK (^3.8.1)
+- Android Studio / VS Code
+- Chrome (for web development)
 
 ### Installation
 
-1. **Clone the repository**
+1. Clone the repository:
    ```bash
    git clone <repository-url>
    cd quiz_learning
    ```
 
-2. **Install dependencies**
+2. Install dependencies:
    ```bash
    flutter pub get
    ```
 
-3. **Run the app**
+3. Run the app:
 
-   **For Mobile (iOS/Android):**
+**For Mobile (Android/iOS):**
    ```bash
    flutter run
    ```
@@ -92,154 +105,173 @@ lib/
    flutter run -d <device-id>
    ```
 
-### Build Commands
+## Running Tests
 
-**Build for Web:**
+### Unit Tests
 ```bash
-flutter build web
+flutter test test/features/quiz/domain/usecases/get_questions_test.dart
+flutter test test/features/user/domain/usecases/get_user_test.dart
 ```
 
-**Build for Android:**
+### Widget Tests
 ```bash
-flutter build apk --release
+flutter test test/features/quiz/presentation/widgets/option_card_test.dart
 ```
 
-**Build for iOS:**
+### All Tests
 ```bash
-flutter build ios --release
-```
-
-## 📦 Dependencies
-
-### Core Dependencies
-- **flutter_bloc** (^8.1.6) - State management
-- **equatable** (^2.0.5) - Value equality
-- **get_it** (^8.0.2) - Dependency injection
-- **go_router** (^14.6.2) - Declarative routing
-- **http** (^1.2.2) - HTTP client for API calls
-- **shared_preferences** (^2.3.3) - Local storage
-
-### Dev Dependencies
-- **flutter_test** - Testing framework
-- **flutter_lints** (^5.0.0) - Linting rules
-
-## 🎨 Design Decisions
-
-### UI/UX
-- **Color Scheme**: Modern purple/indigo theme with clean white backgrounds
-- **Typography**: Clear hierarchy with bold headings and readable body text
-- **Spacing**: Responsive padding that adapts to screen size
-- **Feedback**: Immediate visual feedback with color-coded responses
-- **Accessibility**: High contrast colors and clear iconography
-
-### Architecture
-- **Clean Architecture**: Separation of concerns with models, screens, and widgets
-- **Modular Design**: Reusable components and clear file structure
-- **Scalability**: Easy to extend with new features and quiz categories
-
-### Responsive Design
-- Breakpoint at 600px for mobile/web distinction
-- Adaptive font sizes and spacing
-- Flexible layouts that work on all screen sizes
-
-## 🧪 Testing
-
-### Run Tests
-```bash
-# Run all tests
 flutter test
-
-# Run tests with coverage
-flutter test --coverage
-
-# Run specific test file
-flutter test test/widget_test.dart
 ```
 
-## 🔄 Current Status (Step 1: Static UI)
+## Clean Architecture Layers
 
-✅ **Completed:**
-- [x] Project structure setup
-- [x] Dependencies configuration
-- [x] Theme implementation
-- [x] Data models (User, Category, Question, Result)
-- [x] Reusable widgets (Header, Cards, Options)
-- [x] Home screen with user stats and categories
-- [x] Countdown animation screen
-- [x] Quiz screen with questions and options
-- [x] Result screen with score breakdown
-- [x] GoRouter setup for navigation
-- [x] Responsive design for mobile and web
+### 1. Domain Layer (Business Logic)
+- **Entities**: Pure Dart classes representing core business objects
+- **Repositories**: Abstract interfaces defining data operations
+- **Use Cases**: Single-responsibility classes containing business logic
 
-📋 **Next Steps (Step 2+):**
-- [ ] Bloc implementation for state management
-- [ ] Open Trivia DB API integration
-- [ ] Timer functionality
-- [ ] Score calculation logic
-- [ ] Local storage for progress
-- [ ] Unit and widget tests
-- [ ] Animation enhancements
+### 2. Data Layer (Data Management)
+- **Models**: Data models with JSON serialization
+- **Data Sources**: 
+  - Remote: API calls to Open Trivia DB
+  - Local: SharedPreferences for caching
+- **Repository Implementations**: Concrete implementations of domain repositories
 
-## 🌐 API Integration (Planned)
+### 3. Presentation Layer (UI)
+- **BLoC**: State management with events and states
+- **Screens**: UI screens for different app flows
+- **Widgets**: Reusable UI components
 
-The app is designed to integrate with [Open Trivia Database API](https://opentdb.com/):
+## App Flow
 
-**Example API URL:**
+1. **Home Screen**: 
+   - Displays user information and statistics
+   - Shows quiz categories with progress
+   - Navigate to countdown on category selection
+
+2. **Countdown Screen**: 
+   - 3-second animated countdown (3...2...1)
+   - Loads questions from API during countdown
+   - Navigates to quiz screen
+
+3. **Quiz Screen**:
+   - Displays questions one at a time
+   - 60-second timer per question
+   - Immediate feedback on answer selection
+   - Progress indicator (e.g., Question 3/10 - 30%)
+   - Highlights correct/incorrect answers
+
+4. **Result Screen**:
+   - Shows quiz statistics (correct, incorrect, total)
+   - Displays score percentage and points earned
+   - Updates user progress
+   - Navigate back to home
+
+## API Integration
+
+The app uses the **Open Trivia Database API** to fetch quiz questions:
+
+**Base URL**: `https://opentdb.com/api.php`
+
+**Example Request**:
 ```
-https://opentdb.com/api.php?amount=10&category=9&difficulty=easy&type=multiple
+https://opentdb.com/api.php?amount=10&category=9&difficulty=easy
 ```
 
-**Categories configured:**
-- General Knowledge (ID: 9)
-- Mathematics (ID: 19)
-- Science & Nature (ID: 17)
-- History (ID: 23)
-- Sports (ID: 21)
+**Parameters**:
+- `amount`: Number of questions (default: 10)
+- `category`: Category ID (9=General Knowledge, 19=Math, etc.)
+- `difficulty`: easy, medium, or hard
 
-## 📸 Screenshots
+## Design Decisions
 
-### Home Screen
-- User header with avatar and progress
-- User stats (Rank, Score, Completed quizzes)
-- Quiz category cards with individual progress
+### 1. Clean Architecture
+- **Separation of Concerns**: Each layer has a single responsibility
+- **Testability**: Easy to test individual components
+- **Maintainability**: Changes in one layer don't affect others
+- **Scalability**: Easy to add new features
 
-### Countdown Screen
-- Category icon and name
-- Animated countdown (3-2-1)
-- "Get Ready!" message
+### 2. BLoC Pattern
+- **Predictable State**: Easy to understand app state
+- **Reactive**: UI updates automatically based on state changes
+- **Separation**: Business logic separated from UI
 
-### Quiz Screen
-- Progress bar (Question X/10 - XX%)
-- Question type badge
-- Question text
-- Multiple options with selection state
-- Timer with progress bar
-- Feedback labels (Correct/Incorrect)
+### 3. Dependency Injection
+- **Loose Coupling**: Components don't depend on concrete implementations
+- **Testing**: Easy to mock dependencies
+- **Flexibility**: Easy to swap implementations
 
-### Result Screen
-- Success/encouragement icon
-- Score percentage in circular display
-- Detailed stats (Correct, Incorrect, Total)
-- Points earned display
-- Back to home button
+### 4. Feature-First Structure
+- **Organization**: Related code grouped together
+- **Scalability**: Easy to add new features
+- **Team Collaboration**: Different teams can work on different features
 
-## 🤝 Contributing
+## Key Features Implementation
 
-This is a coding assessment project. For production use, consider:
-- Adding error boundaries
-- Implementing analytics
-- Adding accessibility features
-- Internationalization support
-- Performance optimization
+### Timer System
+- 60-second countdown per question
+- Visual progress bar
+- Auto-submit when time expires
+- Timer stops on answer submission
 
-## 📝 License
+### Feedback System
+- Immediate visual feedback (green for correct, red for incorrect)
+- Feedback message display
+- 1-second delay before next question
+- Correct answer highlighted
 
-This project is created as a coding assessment.
+### Progress Tracking
+- User statistics (rank, score, quizzes taken)
+- Category progress (completed/total quizzes)
+- Quiz progress (current question/total questions)
+- Percentage completion
 
-## 👤 Author
+### Offline Support
+- Categories cached locally
+- User data persisted
+- Quiz results saved locally
+- Categories progress updated locally
 
-Created as part of a Flutter Developer assessment.
+## Responsive Design
 
----
+The app adapts to different screen sizes:
 
-**Note:** This is currently a static UI implementation (Step 1). Full functionality including state management, API integration, and testing will be implemented in subsequent steps.
+- **Mobile**: Optimized for phones (< 600px width)
+- **Web**: Enhanced layout for larger screens (> 600px width)
+- **Adaptive UI**: Different text sizes, spacing, and layouts
+
+## Error Handling
+
+- **Network Errors**: Graceful handling with retry option
+- **API Errors**: Error messages displayed to user
+- **Loading States**: Loading indicators during data fetch
+- **Empty States**: Informative messages when no data available
+
+## Future Enhancements
+
+- [ ] Add more question categories
+- [ ] Implement leaderboard
+- [ ] Add user authentication
+- [ ] Support for multiple languages
+- [ ] Add sound effects and animations
+- [ ] Implement quiz history
+- [ ] Add difficulty selection
+- [ ] Social sharing of results
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## License
+
+This project is created as a coding assessment and is available for educational purposes.
+
+## Acknowledgments
+
+- Open Trivia Database for providing the quiz API
+- Flutter team for the amazing framework
+- BLoC library contributors
