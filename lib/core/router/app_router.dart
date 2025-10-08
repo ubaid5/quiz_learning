@@ -1,10 +1,10 @@
 import 'package:go_router/go_router.dart';
-import '../../screens/home_screen.dart';
-import '../../screens/countdown_screen.dart';
-import '../../screens/quiz_screen.dart';
-import '../../screens/result_screen.dart';
-import '../../models/quiz_category_model.dart';
-import '../../models/quiz_result_model.dart';
+import '../../features/quiz/domain/entities/quiz_category.dart';
+import '../../features/quiz/domain/entities/quiz_result.dart';
+import '../../features/quiz/presentation/screens/home_screen.dart';
+import '../../features/quiz/presentation/screens/countdown_screen.dart';
+import '../../features/quiz/presentation/screens/quiz_screen.dart';
+import '../../features/quiz/presentation/screens/result_screen.dart';
 
 class AppRouter {
   static final GoRouter router = GoRouter(
@@ -19,7 +19,7 @@ class AppRouter {
         path: '/countdown',
         name: 'countdown',
         builder: (context, state) {
-          final category = state.extra as QuizCategoryModel;
+          final category = state.extra as QuizCategory;
           return CountdownScreen(category: category);
         },
       ),
@@ -27,7 +27,7 @@ class AppRouter {
         path: '/quiz',
         name: 'quiz',
         builder: (context, state) {
-          final category = state.extra as QuizCategoryModel;
+          final category = state.extra as QuizCategory;
           return QuizScreen(category: category);
         },
       ),
@@ -35,7 +35,7 @@ class AppRouter {
         path: '/result',
         name: 'result',
         builder: (context, state) {
-          final result = state.extra as QuizResultModel;
+          final result = state.extra as QuizResult;
           return ResultScreen(result: result);
         },
       ),

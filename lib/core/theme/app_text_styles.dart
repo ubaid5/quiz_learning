@@ -263,6 +263,21 @@ class AppTextStyles {
         color: AppTheme.incorrectColor,
       );
 
+  // Option Text
+  static TextStyle get optionText => const TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.w500,
+        color: AppTheme.textPrimary,
+        height: 1.4,
+      );
+
+  static TextStyle get optionTextWeb => const TextStyle(
+        fontSize: 18,
+        fontWeight: FontWeight.w500,
+        color: AppTheme.textPrimary,
+        height: 1.4,
+      );
+
   // Helper method to get responsive text style
   static TextStyle getResponsive({
     required TextStyle mobile,
@@ -272,4 +287,3 @@ class AppTextStyles {
     return isWeb ? web : mobile;
   }
 }
-
